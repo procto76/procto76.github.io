@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Nick Proctor</title>
+    <meta name="description" content="About Nick Proctor, a game developer specializing in gameplay programming and technical design.">
+
+    <!-- Apply saved theme before paint to avoid a light/dark flash -->
+    <script>
+      try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="screen.css">
+  </head>
+  <body>
+    <!-- ============ NAV ============ -->
+    <header class="site-header">
+      <div class="container nav">
+        <a class="logo" href="index.html">Nick Proctor<span class="dot">.</span></a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="index.html#work">Work</a>
+          <a href="about.html" aria-current="page">About</a>
+          <a href="index.html#contact">Contact</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+            <span class="icon-sun" aria-hidden="true">☀</span>
+            <span class="icon-moon" aria-hidden="true">☾</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ ABOUT ============ -->
+      <section class="container section about about-page" aria-labelledby="about-title">
+        <div class="about-side">
+          <h1 id="about-title">About</h1>
+          <div class="about-photos">
+            <img src="assets/Images/Munising-small.jpg" alt="Nick smiling outdoors in Munising, Michigan"
+                 width="900" height="597">
+            <img src="assets/Images/MSU-Grad-small.jpg" alt="Nick in a green cap and gown in front of the Michigan State Spartan helmet"
+                 width="900" height="1200">
+          </div>
+        </div>
+        <div class="about-body">
+          <p>
+            Hi I'm Nick! I'm a game developer who specializes in game
+            programming and technical design. I'm incredibly passionate about my work
+            and love making games, especially ones that are systems heavy.
+          </p>
+          <p>
+            I graduated from Michigan State University in 2026 with a B.S. in Games and Interactive Media and a 
+            minor in Game Design. During my time at MSU, I worked on both large and small team projects, always
+            doing some kind of programming work. I also helped run the student led Spartasoft Studio club at MSU,
+             where I guided a team of programming students to create a large scale game project. 
+          </p>
+          <p>
+            Outside of game development, I enjoy sports (go Lions and Tigers!), music, games, and spending time outdoors. 
+            I also love to play guitar and occasionally write music. 
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>© <span id="year"></span> Nick Proctor</p>
+      <a href="#" class="muted">Back to top ↑</a>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

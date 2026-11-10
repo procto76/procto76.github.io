@@ -3,12 +3,162 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Title</title>
+    <title>Nick Proctor</title>
+    <meta name="description" content="Portfolio of Nick Proctor, a game developer building small, tactile games in Unity.">
+
+    <!-- Apply saved theme before paint to avoid a light/dark flash -->
+    <script>
+      try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.png">
     <link rel="stylesheet" href="screen.css">
   </head>
   <body>
-    <h1>Heading</h1>
+    <!-- ============ NAV ============ -->
+    <header class="site-header">
+      <div class="container nav">
+        <a class="logo" href="index.html">Nick Proctor<span class="dot">.</span></a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#work">Work</a>
+          <a href="about.html">About</a>
+          <a href="#contact">Contact</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+            <span class="icon-sun" aria-hidden="true">☀</span>
+            <span class="icon-moon" aria-hidden="true">☾</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ INTRO ============ -->
+      <section class="intro container">
+        <p class="eyebrow">Game Developer · Unity / C#</p>
+        <!-- <h1>I make small, tactile games<br>that are <span class="hl">fun to touch</span>.</h1> -->
+        <p class="lede">
+          Passionate gameplay programmer emphasizing smooth, emergent gameplay.
+          Currently building <a href="projects/BOOMER.html">BOOMER</a>.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#work">View work</a>
+          <a class="btn btn-ghost" href="assets/General%20Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+        </div>
+      </section>
+
+      <!-- ============ FEATURED PROJECT ============ -->
+      <section class="container featured" aria-labelledby="featured-title">
+        <a class="featured-card" href="projects/BOOMER.html">
+          <div class="media" data-label="Featured GIF / video — 16:9">
+            <!-- Swap the placeholder for real media, e.g.:
+                 <video src="assets/boomer.mp4" autoplay muted loop playsinline></video>
+                 or <img src="assets/boomer.gif" alt="BOOMER gameplay"> -->
+          </div>
+          <div class="featured-body">
+            <p class="eyebrow">Featured · 2026</p>
+            <h2 id="featured-title">BOOMER</h2>
+            <p>A chaotic co-op horror game for up to 6 players. Scavenge eerie environments,
+               feed your loot to a hungry steam engine, and pass Boomer between teammates 
+               in a deadly game of hot potato.</p>
+            <ul class="tags">
+              <li>Online</li><li>Co-op</li><li>Steam</li>
+            </ul>
+            <span class="link-arrow">Read case study →</span>
+          </div>
+        </a>
+      </section>
+
+      <!-- ============ PROJECT GRID ============ -->
+      <section id="work" class="container section" aria-labelledby="work-title">
+        <div class="section-head">
+          <h2 id="work-title">Selected work</h2>
+          <!-- <p class="muted">Games, prototypes, and jams.</p> -->
+        </div>
+
+        <div class="grid">
+          <!-- Copy one <a class="card"> per project -->
+          <a class="card" href="projects/BOOMER.html">
+            <div class="media" data-label="Thumbnail"></div>
+            <div class="card-body">
+              <h3>Uh Oh!</h3>
+              <p>Short description of the project and your role.</p>
+              <ul class="tags"><li>Horror</li><li>Steam</li><li>Released</li></ul>
+            </div>
+          </a>
+
+          <a class="card" href="projects/BOOMER.html">
+            <div class="media" data-label="Thumbnail"></div>
+            <div class="card-body">
+              <h3>Chimera</h3>
+              <p>Short description of the project and your role.</p>
+              <ul class="tags"><li>Roguelike</li><li>Bullet Hell</li><li>WIP</li><li>Steam</li></ul>
+            </div>
+          </a>
+
+          <a class="card" href="projects/BOOMER.html">
+            <div class="media" data-label="Thumbnail"></div>
+            <div class="card-body">
+              <h3>Backyard Brawl</h3>
+              <p>Short description of the project and your role.</p>
+              <ul class="tags"><li>Online</li><li>Party</li></ul>
+            </div>
+          </a>
+
+          <a class="card" href="projects/BOOMER.html">
+            <div class="media" data-label="Thumbnail"></div>
+            <div class="card-body">
+              <h3>Recursion</h3>
+              <p>Short description of the project and your role.</p>
+              <ul class="tags"><li>Singleplayer</li><li>Extraction Shooter</li><li>Itch</li></ul>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ SKILLS ============ -->
+      <section id="skills" class="container section skills-section" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <div class="skills">
+          <div>
+            <h3 class="eyebrow">Engines &amp; languages</h3>
+            <ul><li>Unity</li><li>C#</li><li>C++</li></ul>
+          </div>
+          <div>
+            <h3 class="eyebrow">Focus areas</h3>
+            <ul><li>Gameplay programming</li><li>Game feel / juice</li><li>Editor tools</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section id="contact" class="container section contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact</h2>
+        <p class="contact-line">
+          You can reach me at:
+          <a class="contact-email" href="mailto:nickproctor03@gmail.com">nickproctor03@gmail.com</a>
+        </p>
+        <p class="contact-blurb">
+          I'm always open to collaborations! Feel free to reach out if you'd like to work 
+          together, or just want to chat about games and game development. I'd also be happy
+          to answer any questions about my work or experience making games so far. 
+        </p>
+        <ul class="socials">
+          <li><a href="https://github.com/procto76" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://nickproct.itch.io/" target="_blank" rel="noopener">itch.io</a></li>
+          <li><a href="https://www.linkedin.com/in/nick-proctor-8b6729255/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="assets/General%20Resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p>© <span id="year"></span> Nick Proctor</p>
+      <a href="#" class="muted">Back to top ↑</a>
+    </footer>
+
     <script src="index.js"></script>
   </body>
 </html>
