@@ -1,20 +1,30 @@
-// ---- Theme toggle ----
-// The OS preference is the default. Clicking the button pins a choice
-// in localStorage (applied early by the inline script in <head>).
-(function () {
-  const root = document.documentElement;
-  const btn = document.querySelector('.theme-toggle');
-  if (!btn) return;
+// ---- Before / After toggles ----
+// Markup: .compare > [data-show] buttons + [data-pane] panes with matching names.
+// Only the visible pane's video plays; switching restarts it from the top.
+document.querySelectorAll('.compare').forEach((compare) => {
+  const buttons = compare.querySelectorAll('[data-show]');
+  const panes = compare.querySelectorAll('[data-pane]');
 
-  const systemDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const current = () => root.dataset.theme || (systemDark() ? 'dark' : 'light');
+  const show = (name) => {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.show === name)));
+    panes.forEach((pane) => {
+      const on = pane.dataset.pane === name;
+      pane.classList.toggle('is-active', on);
+      pane.setAttribute('aria-hidden', String(!on));
+      const video = pane.querySelector('video');
+      if (!video) return;
+      if (on) {
+        video.currentTime = 0;
+        video.play().catch(() => {}); // ignore missing files / autoplay blocks
+      } else {
+        video.pause();
+      }
+    });
+  };
 
-  btn.addEventListener('click', () => {
-    const next = current() === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch (e) {}
-  });
-})();
+  buttons.forEach((b) => b.addEventListener('click', () => show(b.dataset.show)));
+  show(compare.dataset.default || 'before');
+});
 
 // ---- Footer year ----
 const yearEl = document.getElementById('year');

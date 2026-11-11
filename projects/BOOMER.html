@@ -7,10 +7,6 @@
     <title>Nick Proctor</title>
     <meta name="description" content="Case study: BOOMER, a physics-driven game built in Unity.">
 
-    <script>
-      try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
-    </script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -21,15 +17,11 @@
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="logo" href="../index.html">Nick Proctor<span class="dot">.</span></a>
+        <a class="logo" href="../index.html">Nick Proctor</a>
         <nav class="nav-links" aria-label="Primary">
           <a href="../index.html#work">Work</a>
           <a href="../about.html">About</a>
           <a href="../index.html#contact">Contact</a>
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-            <span class="icon-sun" aria-hidden="true">☀</span>
-            <span class="icon-moon" aria-hidden="true">☾</span>
-          </button>
         </nav>
       </div>
     </header>
@@ -50,10 +42,9 @@
         </div>
       </section>
 
-      <div class="media project-media" data-label="Trailer / gameplay video — 16:9">
-        <!-- e.g. YouTube embed:
-             <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="BOOMER trailer"
-                     style="width:100%;height:100%;border:0" allowfullscreen></iframe> -->
+      <div class="media project-media media-natural">
+        <img src="../assets/Images/HeaderCapusle.png" width="920" height="430"
+             alt="BOOMER key art: the steam engine and puppet characters fleeing beneath the BOOMER logo">
       </div>
 
       <!-- ============ QUICK FACTS ============ -->
@@ -64,42 +55,108 @@
         <div><dt>Platform</dt><dd>PC, MacOS</dd></div>
       </dl>
 
-      <!-- ============ CASE STUDY ============ -->
-      <article class="prose">
-        <!-- <h2>Overview</h2>
-        <p>What's the core loop? Who is it for? What was the goal going in?</p> -->
+      <!-- ============ PROCEDURAL GENERATION ============ -->
+      <section class="feature-section" aria-labelledby="procgen-title">
+        <h2 id="procgen-title">Procedural Dungeon Generator</h2>
+        <div class="feature">
+          <div class="feature-text">
+            <p>
+              BOOMER required the creation of a networked, randomly generated dungeon.
+              The server picks a seed and broadcasts it to clients, then every machine generates 
+              the same dungeon locally. 
+            </p>
+            <p>
+              This complex generation setup consists of about 7,500 lines of C# across several classes.
+              I also setup a culling manager to handle per-room rendering to save on performance (rooms behind 
+              the player and out of view get culled). 
+            </p>
+          </div>
+          <div class="media feature-media" data-label="LevelGenExample.mp4">
+            <video src="../assets/Videos/LevelGenExample-web.mp4" autoplay muted loop playsinline
+                   aria-label="Dungeon being procedurally generated room by room"></video>
+          </div>
+        </div>
 
-        <!-- <h2>What I built</h2>
-        <ul>
-          <li>Feature or system #1, and why it was interesting</li>
-          <li>Feature or system #2, with a technical challenge you solved</li>
-          <li>Tools or pipeline work that sped up development</li>
-        </ul> -->
+        <!-- Sub-section pattern: small system label, the problem as the headline,
+             the fix as the paragraph, and a Before/After toggle on the media. -->
+        <div class="feature feature-sub">
+          <div class="feature-text">
+            <p class="eyebrow feature-label">Grid painting tool</p>
+            <h3>Odd-shaped rooms were hogging space they didn't use.</h3>
+            <p>
+              The generator treated every room as a perfect square, so L-shapes and narrow
+              rooms reserved empty tiles around them. I built an editor tool that lets designers
+              click tiles in the scene view of any room prefab to switch them on or off. Trimming
+              the tiles a room doesn't actually occupy frees up space for the generator to place
+              more rooms and hallways.
+            </p>
+          </div>
+          <div class="media feature-media" data-label="TilePaintToolDemo.mp4">
+            <video src="../assets/Videos/TilePaintToolDemo-web.mp4" autoplay muted loop playsinline
+                   aria-label="Designer painting unused grid tiles off a room prefab in the Unity scene view"></video>
+          </div>
+        </div>
 
-        <!-- <h2>Challenges &amp; solutions</h2>
-        <p>Pick one meaty problem (e.g. "the physics jittered at high speed") and walk through how you 
-          diagnosed and fixed it. Recruiters love this part.</p> -->
-
-        <!-- <h2>What I learned</h2>
-        <p>Short reflection: what would you do differently next time?</p> -->
-      </article>
+        <div class="feature feature-sub">
+          <div class="feature-text">
+            <p class="eyebrow feature-label">Branch interconnection pass</p>
+            <h3>Every side route was a dead end.</h3>
+            <p>
+              Branch rooms grow outward from the main path like a tree, so players had to
+              walk back the way they came, with nowhere to loop around or escape a chasing
+              monster. After the branches are placed, a post-pass checks every pair of open,
+              unused exits on the level. Wherever two can be joined cleanly, it builds a hallway
+              between them, turning the tree into a graph with loops.
+            </p>
+          </div>
+          <div class="compare" data-default="before">
+            <div class="compare-toggle" role="group" aria-label="Show before or after">
+              <button type="button" data-show="before">Before</button>
+              <button type="button" data-show="after">After</button>
+            </div>
+            <div class="media feature-media compare-stage compare-wide">
+              <div class="compare-pane" data-pane="before">
+                <img src="../assets/Images/LvlGenNoConnections.jpg" width="1400" height="648" loading="lazy"
+                     alt="Before: top-down view of a generated level where every branch off the main path ends in a dead end">
+              </div>
+              <div class="compare-pane" data-pane="after">
+                <img src="../assets/Images/LvlGenConnections.jpg" width="1400" height="647" loading="lazy"
+                     alt="After: the same level with yellow hallways joining nearby branches into loops">
+              </div>
+            </div>
+            <p class="compare-caption">Yellow tiles: hallways added by the interconnection pass.</p>
+          </div>
+        </div>
+      </section>
 
       <!-- ============ GALLERY ============ -->
       <section class="gallery" aria-label="Screenshots">
-        <div class="media" data-label="Screenshot 1"></div>
-        <div class="media" data-label="Screenshot 2"></div>
-        <div class="media" data-label="Screenshot 3"></div>
-        <div class="media" data-label="Screenshot 4"></div>
+        <div class="media">
+          <img src="../assets/Images/NewestBoargShot(1)(1).png" width="1920" height="1080" loading="lazy"
+               alt="A player's puppet teammate recoils as a giant skeletal lizard lunges out of a neon-lit Game Room">
+        </div>
+        <div class="media">
+          <img src="../assets/Images/NewestestGroupShot(1).png" width="1920" height="1080" loading="lazy"
+               alt="Three puppet players posing in front of the green steam engine with a yellow face">
+        </div>
+        <div class="media">
+          <img src="../assets/Images/NewestBoomerShot2(1)(1).png" width="1920" height="1080" loading="lazy"
+               alt="Boomer, a spiky red-and-yellow creature, exploding in a fireball inside a dim study">
+        </div>
+        <div class="media">
+          <img src="../assets/Images/NewestMaskShot(1)(1).png" width="1920" height="1080" loading="lazy"
+               alt="A floating jester mask outlined in red looms over two puppet players around a table">
+        </div>
       </section>
 
       <nav class="project-nav" aria-label="Project navigation">
         <a href="../index.html#work">← Back to work</a>
-        <a href="BOOMER.html">Next project →</a>
+        <a href="UhOh.html">Next project →</a>
       </nav>
     </main>
 
     <footer class="site-footer container">
-      <p>© <span id="year"></span> Your Name</p>
+      <p>© <span id="year"></span> Nick Proctor</p>
       <a href="#" class="muted">Back to top ↑</a>
     </footer>
 
