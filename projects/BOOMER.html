@@ -129,6 +129,69 @@
         </div>
       </section>
 
+      <!-- ============ DOOR-AWARE PATHFINDING ============ -->
+      <section class="feature-section" aria-labelledby="doors-title">
+        <h2 id="doors-title">Door-Aware Enemy Pathfinding</h2>
+        <div class="feature">
+          <div class="feature-text">
+            <p>
+              Some enemies in BOOMER can open doors, and some can't. Each enemy had to path
+              according to its own abilities, inside procedurally generated levels where door
+              states change at runtime.
+            </p>
+            <p class="eyebrow feature-label">The usual approach: NavMesh carving</p>
+            <h3>Carving treats every enemy the same.</h3>
+            <p>
+              Normally each door cuts a hole in the NavMesh while it's closed. But carving applies
+              to every agent equally, so it can't express "this enemy can get through and that one
+              can't." It also rebuilds the NavMesh at runtime on every door change, which is expensive.
+            </p>
+          </div>
+          <div class="compare" data-default="open">
+            <div class="compare-toggle is-code" role="group" aria-label="Show an enemy that can or can't open doors">
+              <button type="button" data-show="open">canOpenDoors</button>
+              <button type="button" data-show="blocked">!canOpenDoors</button>
+            </div>
+            <div class="media feature-media compare-stage">
+              <div class="compare-pane" data-pane="open">
+                <video src="../assets/Videos/EnemyOpeningDoor-web.mp4" muted loop playsinline preload="metadata"
+                       aria-label="An enemy that can open doors pushes through a closed door to reach the player"></video>
+              </div>
+              <div class="compare-pane" data-pane="blocked">
+                <video src="../assets/Videos/EnemyStuckBehindDoor-web.mp4" muted loop playsinline preload="metadata"
+                       aria-label="An enemy that can't open doors is stopped behind the same closed door"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature feature-sub">
+          <div class="feature-text">
+            <p class="eyebrow feature-label">What I did: doors as NavMesh areas</p>
+            <h3>Each enemy filters out the doors it can't use.</h3>
+            <p>
+              Each door prefab has a marker volume that the level's NavMesh bake stamps as a
+              <code>Doorway</code> area. Each enemy then filters out the areas it can't use with a
+              bitmask. The pathfinder does the rest: enemies that can't get through a door route
+              around it, or stop at it if it's the only way.
+            </p>
+          </div>
+          <figure class="code-block">
+            <figcaption>C#</figcaption>
+            <pre><code>agent.areaMask = _defaultAreaMask;
+<span class="tok-kw">if</span> (!canOpenDoors)           ExcludeAreaFromMask(<span class="tok-str">"Doorway"</span>);</code></pre>
+          </figure>
+        </div>
+
+        <div class="feature-result">
+          <p class="eyebrow">Result</p>
+          <p>
+            One NavMesh bake per level, with no expensive runtime rebakes or carving. Each enemy's
+            door abilities come down to two Inspector checkboxes, and the pathfinder handles the rest.
+          </p>
+        </div>
+      </section>
+
       <!-- ============ GALLERY ============ -->
       <section class="gallery" aria-label="Screenshots">
         <div class="media">

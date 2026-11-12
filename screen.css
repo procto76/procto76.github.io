@@ -453,6 +453,8 @@ a:focus-visible, button:focus-visible {
 }
 .compare-toggle button:hover { color: var(--text); }
 .compare-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+/* Toggle labels that are code identifiers keep their exact casing */
+.compare-toggle.is-code button { text-transform: none; letter-spacing: 0; }
 
 .compare-pane {
   position: absolute;
@@ -489,6 +491,65 @@ a:focus-visible, button:focus-visible {
   color: var(--muted);
 }
 .feature-text p { color: var(--muted); max-width: 56ch; margin: 0; }
+
+/* A second label/headline inside the same text column gets breathing room */
+.feature-text .feature-label:not(:first-child) { margin-top: 1.5rem; }
+
+/* Feature block with no media: text runs a bit wider */
+.feature-text-only { grid-template-columns: 1fr; }
+.feature-text-only .feature-text p { max-width: 72ch; }
+
+/* Inline code inside prose */
+.feature-text code {
+  font-family: var(--font-mono);
+  font-size: .88em;
+  padding: .1em .4em;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Code snippet panel */
+.code-block {
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.code-block figcaption {
+  padding: .55em 1.1em;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.code-block pre {
+  margin: 0;
+  padding: 1.1em 1.2em;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.tok-kw  { color: var(--accent); }
+.tok-str { color: #E8C468; }
+
+/* "Result" callout at the end of a feature section */
+.feature-result {
+  margin-top: 16px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.feature-result .eyebrow { margin-bottom: .4rem; color: var(--accent-ink); }
+.feature-result p:not(.eyebrow) { margin: 0; max-width: 72ch; }
 
 .feature-media { border-radius: var(--radius); border: 1px solid var(--border); }
 /* Label shows until the video file exists and covers it */
